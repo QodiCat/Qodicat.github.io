@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>AI绘画quickly入门 | Qodicat&#39;s World</title>
+  <title>Stable Diffusion（八）ControlNet | Qodicat&#39;s World</title>
 
   <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -442,21 +442,21 @@
 
 
 <div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('https://pic2.zhimg.com/80/v2-63bbdb5b76b8d349ad35ff4281efbd37_1440w.webp')">
+  background-position: center center;position: relative;background-image:url('https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp')">
   <div class="post-detail-header-mask"></div>
   <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
   
   <div class="post-detail-header_info-box">
     <div class="title-box">
       <span class="title">
-        AI绘画quickly入门
+        Stable Diffusion（八）ControlNet
       </span>
     </div>
     
     
       
         <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> Published in：2023-07-14 |
+          <i class="fas fa-calendar"></i> Published in：2023-07-24 |
         </span>
       
 
@@ -489,151 +489,57 @@
   <div class="main-content">
     <article class="post post-detail">
       <div class="post-content">
-        <h2 id="1-基本原理"><a href="#1-基本原理" class="headerlink" title="1.基本原理"></a>1.基本原理</h2><p>​	在2012年，就有很多的学者对图像生成展开了研究，但在那时候，因为算法，数据，算力等各方面原因，生成的图像过于“抽象” ，可以称他为灵魂画手，直到最近两年，AI产出的图像内容在质量上和准确度上渐渐地变得更高，同时由于一些辅助装备，如ControlNet等让AI绘画可控性更高，也更受到大家的重视。</p>
-<p>​	现在的主流的AI绘画模型，主要运用了扩散Diffusion模型，他很人类绘画相比差异很大，不是起稿，勾线，描边，上色等步骤按部就班完成的，他采取了一个独特的方式</p>
-<p>首先它将图片通过增加噪声的方式进行“扩散”，也就是让他变得更模糊，当内容模糊之后，我们就可以理解为有更大的空间让它自由发挥了，AI也是如此，但是在训练它的过程中，它可以学习到一种重要的能力，就是逐步恢复这种杂乱的噪声为真实图像</p>
-<p>而如果在训练的过程中我们给AI 一些限制条件等，AI就可以按我们限制条件去恢复生成我们想要的图像了</p>
-<h2 id="2-主流方式"><a href="#2-主流方式" class="headerlink" title="2.主流方式"></a>2.主流方式</h2><p><strong>Midjourney，DALL E等方式</strong></p>
-<p>​	（1）出图额度需要购买会员（换句话说就是需要付费）直接租价格比较贵，可以去租用共享账号</p>
-<p>​	（2）较容易出比较高质量的图</p>
-<p>​	（3）模型部署在云端，不需要本地电脑配置较高</p>
-<p><strong>Stable Diffusion</strong></p>
-<p>​	（1）是一款免费的软件，可以无限制出图</p>
-<p>​	（2）但是有一定的上手门槛，出图质量需要较多的调控才能达到满意的效果，因而我们这系列教程主要围绕stable diffusion</p>
-<p>​	（3）部署在本地，比较吃电脑配置，显卡内存（也可以部署在GPU服务器）</p>
-<p>​	（4）但是由于开源，依托强大的开源社区，收获非常多的活跃用户，可以进行个性化的训练，个性化程度较高</p>
-<h2 id="3-配置要求"><a href="#3-配置要求" class="headerlink" title="3.配置要求"></a>3.配置要求</h2><h3 id="3-1-显卡方面"><a href="#3-1-显卡方面" class="headerlink" title="3.1 显卡方面"></a>3.1 显卡方面</h3><p><strong>显卡品牌型号</strong> N卡（英伟达的独立显卡）首选，目前也支持A卡，但是速度较N卡慢</p>
-<p>不同品牌型号，意味着显卡的算力不同，进而影响着出图的速度</p>
-<p>查看自己的显卡品牌型号的方法如下链接  AI应用\Stable_Diffusion\image-20230814163822829.png</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/462233007">分享几种查看本机显卡类型的方法~~ - 知乎 (zhihu.com)</a></p>
-<p>查到以后可以对照下表 ，下表是不同型号N卡出一张512*512分辨率的图片，迭代步数为100步的时间 </p>
-<p><img src="/AI%E5%BA%94%E7%94%A8%5CStable_Diffusion%5Cimage-20230814163822829.png" class="lazyload placeholder" data-srcset="/AI%E5%BA%94%E7%94%A8%5CStable_Diffusion%5Cimage-20230814163822829.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230815210656999"></p>
-<p>图片来源 B站 Nenly同学</p>
-<p><strong>显卡内存</strong>  最少8GB能玩，16GB及格，上不封顶，越高玩的越爽        内存主要影响着出图分辨率，模型大小等</p>
-<p><strong>硬盘空间</strong>  最少有60GB以上的硬盘空间，因为我们需要下载很多模型，而一个模型往往都有几个GB</p>
-<h2 id="4-基本界面"><a href="#4-基本界面" class="headerlink" title="4.基本界面"></a>4.基本界面</h2><p>下面界面是加了一些插件之后的，如中文插件，图库浏览器，如果你使用的是一些大佬的整合包，那么一般他们都会帮助你安装好，但是如果没有也无所谓，我们会在之后给大家讲解插件的安装</p>
-<p><img src="/image-20230814164648622.png" class="lazyload placeholder" data-srcset="/image-20230814164648622.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230814164648622"></p>
-<h3 id="4-1-模型设置区"><a href="#4-1-模型设置区" class="headerlink" title="4.1 模型设置区"></a>4.1 模型设置区</h3><p>左上角用来更换模型</p>
-<p><img src="/image-20230814164736337.png" class="lazyload placeholder" data-srcset="/image-20230814164736337.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230814164736337"></p>
-<p>点击下拉箭头查看并且选择模型</p>
-<p>模型需要我们提前下载并且保存到    根目录&#x2F;models&#x2F;Stable-diffusion文件夹下</p>
-<p>当我们保存模型到上述文件夹下后，点击蓝色的刷新按钮，刷新模型，再点击下拉箭头就可以看到我们的模型了</p>
-<h3 id="4-2-菜单栏区域"><a href="#4-2-菜单栏区域" class="headerlink" title="4.2 菜单栏区域"></a>4.2 菜单栏区域</h3><p><img src="/image-20230814165333774.png" class="lazyload placeholder" data-srcset="/image-20230814165333774.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230814165333774"></p>
-<p>一些基本功能</p>
-<p>最常用的两个 文生图，图生图</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>文生图</td>
-<td>由prompts提示词生成图片</td>
-</tr>
-<tr>
-<td>图生图</td>
-<td>由已有的图片+提示词生成图片</td>
-</tr>
-<tr>
-<td>图库浏览器（后安装的插件）</td>
-<td>查看生成的图片</td>
-</tr>
-<tr>
-<td>Tag 反推</td>
-<td>由图片反推提示词prompts</td>
-</tr>
-<tr>
-<td>设置</td>
-<td>进行一些设置操作</td>
-</tr>
-<tr>
-<td>扩展</td>
-<td>进行扩展安装管理等操作</td>
-</tr>
-</tbody></table>
-<p>其他我们用到的时候再介绍</p>
-<h3 id="4-3-提示词区"><a href="#4-3-提示词区" class="headerlink" title="4.3 提示词区"></a>4.3 提示词区</h3><p>最关键的一个区域，也就是我们念咒语的地方，这里用英语撰写（可以用翻译软件）</p>
-<p><strong>正向提示词</strong>  希望画面出现的内容，一般我们会有一些固定的提示词，如（杰作masterpiece, 最高质量best quality，高细节）特定模型也会有特定的让画面质量变高的正向提示词</p>
-<p><strong>反向提示词</strong>  不希望画面出现的内容，如（丑陋的，多手指的）</p>
-<p>之后会给大家专门总结，到时候直接复制粘贴即可</p>
-<p>提示词区右边的生成下边有五个小图标，相当于一些快捷键，从左到右依次为</p>
-<p><img src="/image-20230815211951592.png" class="lazyload placeholder" data-srcset="/image-20230815211951592.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230815211951592"></p>
-<table>
-<thead>
-<tr>
-<th>图标</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>箭头</td>
-<td>复原上次生成图片的提示词（自动记录）</td>
-</tr>
-<tr>
-<td>垃圾桶</td>
-<td>清空当前所有提示词</td>
-</tr>
-<tr>
-<td>红色日出</td>
-<td>打开其他模型选择界面如Embedding，HypernetWork的选择，这些模型后面会单独讲到</td>
-</tr>
-<tr>
-<td>记事薄</td>
-<td>应用选择的风格模板到当前提示词，就是着五个小图标下面那个风格模板选项</td>
-</tr>
-<tr>
-<td>保存按钮</td>
-<td>保存当前的正反向提示词</td>
-</tr>
-</tbody></table>
-<h3 id="4-4-出图设置区"><a href="#4-4-出图设置区" class="headerlink" title="4.4 出图设置区"></a>4.4 出图设置区</h3><p>如图</p>
-<img src="image-20230814165739102.png" class="lazyload placeholder" data-srcset="image-20230814165739102.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230814165739102" style="zoom: 67%;" />
-
-<p><strong>从上到下，左到右依次介绍</strong></p>
-<p><strong>采样方法</strong></p>
-<p>​	采样方法具体是什么涉及到模型原理，不必深究，我们这里只需要知道什么时候用什么样的采样方法即可，一般遵循如下原则</p>
-<p>​	（1）在显卡给力，时间充裕的条件下，可以自己尝试比较不同的采样方法</p>
-<p>​	（2）一般在C站下载模型的同时，模型作者会给出他觉得比较好的采样方式，这是作者已经经过大量实验的结论，可以帮助你节约时间</p>
-<p>​	（3）没有作者相关建议的时候</p>
-<p>​		对于二次元图  DPM++ 2M或DPM++ 2M Karras  UniPC</p>
-<p>​		对于真实系图 Euler a、DPM++ SDE、DPM++ SDE Karras</p>
-<p>​		同时，一般而言带++的都相对来说不戳</p>
-<p><strong>迭代采样步数</strong></p>
-<p>之前讲原理的时候，模型将噪声一步一步恢复到真实图片，此参数控制这些去噪步骤的数量。通常越高越好，但在一定程度上，我们使用的默认值是25个步骤。以下是不同情况下使用哪个步骤编号的一般指南：</p>
-<p>​	（1）如果正在测试新的提示，并希望获得快速结果来调整您的输入，请使用10-15个步骤</p>
-<p>​	（2）当您找到您喜欢的提示时，请将步骤增加到25</p>
-<p>​	（3）如果是有毛皮的动物或有纹理的主题，生成的图像缺少一些细节，尝试将其提高到40</p>
-<p><strong>面部修复</strong>：修复人物的面部，但是非写实风格的人物开启面部修复可能导致面部崩坏。<br><strong>平铺&#x2F;分块</strong>：生成一张可以平铺的图像<br><strong>高分辨率重绘</strong>：使用两个步骤的过程进行生成，以较小的分辨率创建图像，然后在不改变构图的情况下改进其中的细节，选中后会有新的参数，之后专门出一篇介绍</p>
-<p><strong>宽度高度</strong> 出图分辨率设置  最佳的范围应在512至768像素之间</p>
-<p>设置的出图分辨率太低，会导致图像不清晰</p>
-<p>设置的出图的分辨率过高，一方面显存支撑不了，另外一方面可能会导致图像生成多人情况，</p>
-<p><strong>生成批次</strong>：每次生成图像的组数。<br><strong>每批数量</strong>：每组多少个图像。图像总数是这个值乘以批次数。除 4090 等高级显卡以外通常保持为 1</p>
-<p><strong>提示词相关性CFG</strong>：较高的数值将提高生成结果与提示的匹配度。<br>OpenArt上使用的默认CFG是7，这在创造力和生成你想要的东西之间提供了最佳平衡。通常不建议低于5。<br>CFG量表可以分为不同的范围，每个范围都适合不同的提示类型和目标<br>CFG 2 – 6：有创意，但可能太扭曲，没有遵循提示。对于简短的提示来说，可以很有趣和有用<br>CFG 7-10：推荐用于大多数提示。创造力和引导一代之间的良好平衡<br>CFG 10-15：当您确定您的提示是详细且非常清晰的，您希望图像是什么样子时<br>CFG 16-20：除非提示非常详细，否则通常不推荐。可能影响一致性和质量<br>CFG &gt;20：几乎无法使用</p>
-<p><strong>随机种子（Seed）</strong>:生成每张图片时的随机种子，这个种子是用来作为确定扩散初始状态的基础。不懂的话，用随机的即可。</p>
-<h2 id="5-文生图基本操作流程"><a href="#5-文生图基本操作流程" class="headerlink" title="5.文生图基本操作流程"></a>5.文生图基本操作流程</h2><p>我们可能一下子了解不了这么多，大家可能都看困了，那么我们来亲自来出一张图，体验一下基本的过程，加深印象</p>
-<h3 id="5-1-选用模型，撰写提示词"><a href="#5-1-选用模型，撰写提示词" class="headerlink" title="5.1 选用模型，撰写提示词"></a>5.1 选用模型，撰写提示词</h3><p>在左上角模型选取，选择深渊橘模型</p>
-<p><strong>写提示词</strong></p>
-<p><strong>画面内容</strong> 用自己的语言描述一个画面出来</p>
-<p>如  一个女生在城市里骑着自行车，阳光洒在她的身上，但是提示词不认中文打开翻译软件，翻译即可</p>
-<p>A girl rides a bicycle in the city, and the sunlight  shines on her</p>
-<p>但仅有这个远远不够，不相信？给你看一下这样<strong>图片直出 有多离谱</strong></p>
-<p>点击生成，喀嚓，生成如下</p>
-<p>![00061-202973728-A girl rides a bicycle in the city and the sunlight  shines on her_b7c2db5a94e11e2b3e236598b41eaad053a308d7](00061-202973728-A girl rides a bicycle in the city and the sunlight  shines on her_b7c2db5a94e11e2b3e236598b41eaad053a308d7.png)</p>
-<p>惨不忍睹，所以还需要加一些正面对画面质量这些约束的咒语</p>
-<p><strong>在正向提示框加入</strong></p>
-<p>SFW, (masterpiece:1,2), best quality, masterpiece, highres, original, extremely detailed wallpaper, perfect lighting,(extremely detailed CG:1.2),</p>
-<p><strong>反向提示框加入</strong></p>
-<p>NSFW, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, (ugly:1.331), (duplicate:1.331), (morbid:1.21), (mutilated:1.21), (tranny:1.331), mutated hands, (poorly drawn hands:1.5), blurry, (bad anatomy:1.21), (bad proportions:1.331), extra limbs, (disfigured:1.331), (missing arms:1.331), (extra legs:1.331), (fused fingers:1.61051), (too many fingers:1.61051), (unclear eyes:1.331), lowers, bad hands, missing fingers, extra digit,bad hands, missing fingers, (((extra arms and legs))),</p>
-<h3 id="5-2-进行出图设置"><a href="#5-2-进行出图设置" class="headerlink" title="5.2 进行出图设置"></a>5.2 进行出图设置</h3><p>我们就将采样方式设置为 DPM++ 2M</p>
-<h3 id="5-3-再次出图！"><a href="#5-3-再次出图！" class="headerlink" title="5.3 再次出图！"></a>5.3 再次出图！</h3><p>![00068-300861399-A girl rides a bicycle in the city, and the sunlight  shines on her_SFW, (masterpiece_1,2), best quality, masterpiece, highres,](00068-300861399-A girl rides a bicycle in the city, and the sunlight  shines on her_SFW, (masterpiece_1,2), best quality, masterpiece, highres,.png)</p>
-<p>不能说有多好，但至少比刚才好了一些，当然后续还会介绍更多技巧提升画面质量</p>
-<p>所以我们要意识到一点， stable diffusion 出一张好图是不容易的，这也是为什么显卡这些的重要性，它可以让我们低成本试错</p>
-<h3 id="5-4-保存"><a href="#5-4-保存" class="headerlink" title="5.4 保存"></a>5.4 保存</h3><p>点击图库浏览器，可以查看生成的图片</p>
-<p>想把他导出来</p>
-<p>右键，另存为即可</p>
-<p>或者找到根目录下的outputs文件夹</p>
+        <p>2023年的2月13日，一款名叫ControlNet的插件横空出世，AI绘画变得更加可控</p>
+<p>ControlNet直译过来很简单，就叫做控制网，开发者是一名华裔，毕业于苏州大学，目前在斯坦福做读博士一年级，大佬大佬！</p>
+<p>在controlNet之前，基于扩散模型的绘画是极为难控制的，平时自嗨画画其实没有一点问题，随机就随机一点，但是对于一些特定要求的岗位的同学来说，这种抽卡式缺乏稳定性的模型很难真正提高效率。</p>
+<h1 id="1-ControlNet的作用结构"><a href="#1-ControlNet的作用结构" class="headerlink" title="1 ControlNet的作用结构"></a>1 ControlNet的作用结构</h1><p>​	根据一些额外信息控制扩散生成走向，业内人士称为微调，通俗点说就是大模型你不是随机吗，那我给你一些指引信息，让你乖乖听话朝着我期望的方向走</p>
+<p>​	这时候有好奇的小伙伴就要问到了，那他和图生图有什么区别吗？我直接输入图片不也可以达到同样的效果吗？其实从某种意义上来说是的，但我举如下一个例子你就明白了</p>
+<p>​	比如我现在要生成一个有着特定姿势的图片，我固然可以通过一张自己期待的姿势的图片输入，模型可能会了解到这个姿势，但与此同时，这种图片除了姿势的其他信息如画面颜色，风格，人物特征也会被网络捕获到，因而就可能会产生意外的化学反应，但是用ControlNet可以提取人体关键点（如下图），这样的话模型只会了解到纯粹的需要生成的姿势而不会混杂其他信息，可控性就会增强了</p>
+<h1 id="2-ControlNet的安装和使用"><a href="#2-ControlNet的安装和使用" class="headerlink" title="2 ControlNet的安装和使用"></a>2 ControlNet的安装和使用</h1><p>ControlNet本质是一个插件，所以类似于之前插件的安装（看之前的这篇插件安装的文章）</p>
+<p>不同于一些插件，ControlNet还需要搭配不同的模型来使用，来实现特定的功能</p>
+<p>最推荐的安装方式，是将ControlNet的扩展文件夹放在根目录下的extensions文件夹内，可以省下很多麻烦</p>
+<p>然后在扩展选单里重新加载WebUI 界面，就可以在文生图和图生图里面看到了</p>
+<p>下载一个ControlNet模型（一般是pth和yaml文件）之后移动到ControlNet的扩展文件夹中</p>
+<h1 id="3-基本使用方式"><a href="#3-基本使用方式" class="headerlink" title="3 基本使用方式"></a>3 基本使用方式</h1><p>点开ControlNet控制网。输入一张图片，我们在这里期望输出的图片模仿我们输入图片的姿势</p>
+<p><img src="/img%5CStable_diffusion%5Cimage-20230913193208411.png" class="lazyload placeholder" data-srcset="/img%5CStable_diffusion%5Cimage-20230913193208411.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230913193208411"></p>
+<p>我们从网上找一张<img src="Snipaste_2023-09-13_19-40-39.png" class="lazyload placeholder" data-srcset="Snipaste_2023-09-13_19-40-39.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="Snipaste_2023-09-13_19-40-39" style="zoom:50%;" />图片上传</p>
+<p>选择预处理器（OpenPose就是提取姿势的），并选择相应的模型</p>
+<p><img src="/img%5CStable_diffusion%5Cimage-20230913194602605.png" class="lazyload placeholder" data-srcset="/img%5CStable_diffusion%5Cimage-20230913194602605.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230913194602605"></p>
+<p>其他参数先维持不变</p>
+<p>加入我们期望的场景提示词，如在森林里</p>
+<blockquote>
+<p>1 cute girl, forest, smile,<br>SFW, (masterpiece:1.2), best quality, masterpiece, highres, original, extremely detailed wallpaper, perfect lighting,(extremely detailed CG:1.2)</p>
+</blockquote>
+<p>生成![00228-2167140323-1 cute girl, forest, smile, _SFW, (masterpiece_1.2), best quality, masterpiece, highres, original, extremely detailed wallpaper,](00228-2167140323-1 cute girl, forest, smile, _SFW, (masterpiece_1.2), best quality, masterpiece, highres, original, extremely detailed wallpaper,.png)</p>
+<p>更改一下提示词</p>
+<blockquote>
+<p>1 cute girl, city, smile,<br>SFW, (masterpiece:1.2), best quality, masterpiece, highres, original, extremely detailed wallpaper, perfect lighting,(extremely detailed CG:1.2)</p>
+</blockquote>
+<p>![00236-1319366320-1 cute girl, city, smile, white coat_SFW, (masterpiece_1.2), best quality, masterpiece, highres, original, extremely detailed wa](00236-1319366320-1 cute girl, city, smile, white coat_SFW, (masterpiece_1.2), best quality, masterpiece, highres, original, extremely detailed wa.png)</p>
+<p>可以看出姿势完全不变</p>
+<p>同时它还会附加给我们一张骨骼图</p>
+<p><img src="http://127.0.0.1:6006/file=/tmp/tmpk7lwq82o.png" class="lazyload placeholder" data-srcset="http://127.0.0.1:6006/file=/tmp/tmpk7lwq82o.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="img"></p>
+<h2 id="3-1-参数详解"><a href="#3-1-参数详解" class="headerlink" title="3.1 参数详解"></a>3.1 参数详解</h2><p><strong>Control Weight</strong></p>
+<p>决定这个控制效应在图片中呈现出来的强度，维持默认1不变</p>
+<p><strong>Starting Control step</strong> </p>
+<p><strong>ending Control step</strong> </p>
+<p>什么时候加入ControlNet影响，默认的0到1表示全程生效，缩短影响，可以赋予图像更多的自由度</p>
+<p><strong>ControlMode</strong></p>
+<p>提示词影响和ControlNet之间倾向于哪一个，一般维持默认Balanced即可，二者兼顾</p>
+<p>核心就是控制强弱</p>
+<p><strong>缩放模式</strong></p>
+<p>会在导入图片和你生成图片分辨率不匹配的时候起作用</p>
+<h2 id="3-2-代表性ControlNet模型应用"><a href="#3-2-代表性ControlNet模型应用" class="headerlink" title="3.2 代表性ControlNet模型应用"></a>3.2 代表性ControlNet模型应用</h2><h3 id="3-2-1-Open-Pose姿态"><a href="#3-2-1-Open-Pose姿态" class="headerlink" title="3.2.1 Open Pose姿态"></a>3.2.1 Open Pose姿态</h3><p>上面讲到的只是OpenPose的基本的身体整体骨骼的刻画</p>
+<p>选择不同的预处理器可以获得对手部，脸部更精确的刻画</p>
+<p><img src="/img%5CStable_diffusion%5Cimage-20230913200558559.png" class="lazyload placeholder" data-srcset="/img%5CStable_diffusion%5Cimage-20230913200558559.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230913200558559"></p>
+<p>比如我们使用openpose_face,可以看到获得了更精细的脸部特征骨骼图</p>
+<p>![tmpbpgj9ukv (1)](tmpbpgj9ukv (1).png)</p>
+<h3 id="3-2-2-Depth-深度"><a href="#3-2-2-Depth-深度" class="headerlink" title="3.2.2 Depth 深度"></a>3.2.2 Depth 深度</h3><p>适合富有空间感的多层次场景</p>
+<h3 id="3-2-3-canny-边缘检测"><a href="#3-2-3-canny-边缘检测" class="headerlink" title="3.2.3 canny 边缘检测"></a>3.2.3 canny 边缘检测</h3><p>通过边缘来进行绘画输出，超级强大！！！</p>
+<p>比如我们这里用Canny检测器，可以生成几乎一模一样的</p>
+<p><img src="/img%5CStable_diffusion%5Cimage-20230913201834850.png" class="lazyload placeholder" data-srcset="/img%5CStable_diffusion%5Cimage-20230913201834850.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230913201834850"></p>
+<p>可以实现线稿上色</p>
+<p><img src="/img%5CStable_diffusion%5Cimage-20230913202412411.png" class="lazyload placeholder" data-srcset="/img%5CStable_diffusion%5Cimage-20230913202412411.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20230913202412411"></p>
 
       </div>
       <div class="post-tags-categories">
@@ -647,7 +553,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>link:  </strong>
-    <a href="/2023/07/14/AI应用/Stable_Diffusion/AI绘画quickly入门/" target="_blank" title="AI绘画quickly入门">http://example.com/2023/07/14/AI应用/Stable_Diffusion/AI绘画quickly入门/</a>
+    <a href="/2023/07/24/AI应用/Stable_Diffusion/8 ControlNet/" target="_blank" title="Stable Diffusion（八）ControlNet">http://example.com/2023/07/24/AI应用/Stable_Diffusion/8 ControlNet/</a>
     </li>
     <li class="post-copyright-license">
       <strong>Copyright notice:   </strong>
@@ -691,16 +597,15 @@
   <div class="post-nav-next post-nav-item">
     <div class="post-nav-img" style="background-size: cover; 
       background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
     </div>
-    <a href="/2020/09/14/categories/index/" class="post-nav-link">
+    <a href="/2023/07/22/AI%E5%BA%94%E7%94%A8/Stable_Diffusion/7%20%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6/" class="post-nav-link">
       <div class="title">
         Next: <i class="fas fa-angle-right"></i>
-        <div class="title-text">categories</div>
+        <div class="title-text">Stable Diffusion（七）扩展插件</div>
       </div>
       <!-- <div class="content">
-        这里有我写过的相关的系列的文章，欢迎系统阅读！如果对你有任何问题，可以给我反馈
-
+        Stable diffusion的开源生态为各种各样的辅助插件的开发提供了极大的便利，而这些辅助插件又可以为我们AI作画
       </div> -->
     </a>
   </div>
@@ -1006,7 +911,7 @@
   <div class='content'>
     <div class="toc-main">
       <div class="toc-content">
-        <!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">1.基本原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%BB%E6%B5%81%E6%96%B9%E5%BC%8F"><span class="toc-text">2.主流方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E8%A6%81%E6%B1%82"><span class="toc-text">3.配置要求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%98%BE%E5%8D%A1%E6%96%B9%E9%9D%A2"><span class="toc-text">3.1 显卡方面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%9F%BA%E6%9C%AC%E7%95%8C%E9%9D%A2"><span class="toc-text">4.基本界面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E5%8C%BA"><span class="toc-text">4.1 模型设置区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%8F%9C%E5%8D%95%E6%A0%8F%E5%8C%BA%E5%9F%9F"><span class="toc-text">4.2 菜单栏区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%8C%BA"><span class="toc-text">4.3 提示词区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E5%87%BA%E5%9B%BE%E8%AE%BE%E7%BD%AE%E5%8C%BA"><span class="toc-text">4.4 出图设置区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%96%87%E7%94%9F%E5%9B%BE%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">5.文生图基本操作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E9%80%89%E7%94%A8%E6%A8%A1%E5%9E%8B%EF%BC%8C%E6%92%B0%E5%86%99%E6%8F%90%E7%A4%BA%E8%AF%8D"><span class="toc-text">5.1 选用模型，撰写提示词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E8%BF%9B%E8%A1%8C%E5%87%BA%E5%9B%BE%E8%AE%BE%E7%BD%AE"><span class="toc-text">5.2 进行出图设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%86%8D%E6%AC%A1%E5%87%BA%E5%9B%BE%EF%BC%81"><span class="toc-text">5.3 再次出图！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E4%BF%9D%E5%AD%98"><span class="toc-text">5.4 保存</span></a></li></ol></li></ol> -->
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-ControlNet%E7%9A%84%E4%BD%9C%E7%94%A8%E7%BB%93%E6%9E%84"><span class="toc-text">1 ControlNet的作用结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-ControlNet%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">2 ControlNet的安装和使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">3 基本使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="toc-text">3.1 参数详解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%BB%A3%E8%A1%A8%E6%80%A7ControlNet%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8"><span class="toc-text">3.2 代表性ControlNet模型应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-Open-Pose%E5%A7%BF%E6%80%81"><span class="toc-text">3.2.1 Open Pose姿态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-Depth-%E6%B7%B1%E5%BA%A6"><span class="toc-text">3.2.2 Depth 深度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-canny-%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B"><span class="toc-text">3.2.3 canny 边缘检测</span></a></li></ol></li></ol></li></ol> -->
         <div class="toc"></div>
       </div>
     </div>
